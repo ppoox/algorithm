@@ -1,80 +1,90 @@
 package api_validate_test;
 
-import com.sun.istack.internal.Nullable;
-
 import java.lang.reflect.Array;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Integer resultCode = null;
-        String[] strs = null;
         ApiModel model = new ApiModel();
+        model.setNo("11");
+        model.setValue("dd");
+//        api(model);
+
+        api(model).forEach((s, o) -> {
+            System.out.println("key : " + s + " / value : " + o);
+            System.out.println("=======================");
+        });
+
+    }
+
+    public static Map<String, Object> api(ApiModel model) {
+        Map<String, Object> resultMap;
 
         // obj 널체크
         if (isObjectBlank(model)) {
-            resultCode = 101;
-            strs = new String[]{"모델이 널입니다."};
-        }else {
-            // 파라미터 널체크
-            if (isTextBlank(model.getNo())) {
-                resultCode = 102;
-                strs = new String[]{"No가 널입니다."};
-            } else if (isTextBlank(model.getValue())) {
-                resultCode = 102;
-                strs = new String[]{"Value가 널입니다."};
-            } else {
-                // 파라미터 사이즈체크
-                if (model.getNo().length() > 3) {
-                    resultCode = 103;
-                    strs = new String[]{"No의 길이가 큽니다."};
-                } else if (model.getValue().length() > 5) {
-                    resultCode = 103;
-                    strs = new String[]{"Value의 길이가 큽니다."};
-                } else {
-                    // 통과
-                    resultCode = 0;
-                    strs = new String[]{"정상처리"};
-                }
-            }
+            return message(101, "모델");
         }
 
-        System.out.println("결과코드 : " + resultCode);
-        message(null);
+        // 파라미터 널체크
+        if (isTextBlank(model.getNo())) {
+            return message(102, "번호");
+        } else if (isTextBlank(model.getValue())) {
+            return message(102, "값");
+        }
 
+        // 파라미터 사이즈체크
+        if (model.getNo().length() > 3) {
+            return message(103, "번호");
+        } else if (model.getValue().length() > 5) {
+            return message(103, "값");
+        }
+
+        // 통과
+        Map<String, Object> map = new HashMap<>();
+        map.put("result", "result");
+        resultMap = message(0, "");
+        resultMap.put("data", "data");
+
+        return resultMap;
     }
 
-    private static void message(Integer aa) {
-        if(aa == null) {
-            aa = 99999;
+    private static Map<String, Object> message(Integer code, String value) {
+        Map<String, Object> result = new HashMap<>();
+        if(code == null) {
+            code = 99999;
         }
-        switch (aa) {
+        switch (code) {
             case 0:
-                System.out.println("정상처리");
+                result.put("resultMessage", "정상처리");
                 break;
             case 101:
-                System.out.println("모델이 널입니다.");
+                result.put("resultMessage", value + " 모델이 널입니다.");
                 break;
             case 102:
-                System.out.println("파라미터가 널입니다.");
+                result.put("resultMessage", value + " 파라미터가 널입니다.");
+                break;
+            case 103:
+                result.put("resultMessage", value + " 파라미터 길이가 초과하였습니다.");
                 break;
             default:
-            System.out.println("디폴트 메세지 입니다.");
+                result.put("resultMessage", value + " 디폴트 메세지 입니다.");
                 break;
         }
+        result.put("resultCode", code);
+
+        return result;
     }
 
     private static boolean isTextBlank(String str) {
-        return str == null || str.isEmpty() ? true : false;
+        return str == null || str.isEmpty();
     }
 
     private static boolean isObjectBlank(Object obj) {
-        if (obj instanceof String) return obj == null || "".equals(obj.toString().trim());
-        else if (obj instanceof List) return obj == null || ((List) obj).isEmpty();
-        else if (obj instanceof Map) return obj == null || ((Map<Object, Object>) obj).isEmpty();
-        else if (obj instanceof Object[]) return obj == null || Array.getLength(obj) == 0;
+        if (obj instanceof String) return "".equals(obj.toString().trim());
+        else if (obj instanceof List) return ((List) obj).isEmpty();
+        else if (obj instanceof Map) return ((Map<Object, Object>) obj).isEmpty();
+        else if (obj instanceof Object[]) return Array.getLength(obj) == 0;
         else return obj == null;
     }
 }
