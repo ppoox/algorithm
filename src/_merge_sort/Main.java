@@ -22,27 +22,27 @@ public class Main {
     }
 
     public static void merge(int[] a, int start, int middle, int end) {
-        int i=start, j=middle+1, k=start;
+        int i = start, j = middle + 1, k = start;
         int[] tmp = new int[a.length];
 
-        while(i<=middle && j<=end) {
-            if(a[i]<=a[j]) {
-                tmp[k++]=a[i++];
+        while (i <= middle && j <= end) {
+            if (a[i] <= a[j]) {
+                tmp[k++] = a[i++];
             } else {
-                tmp[k++]=a[j++];
+                tmp[k++] = a[j++];
             }
         }
-        while(i<=middle) {
-            tmp[k++]=a[i++];
+        while (i <= middle) {
+            tmp[k++] = a[i++];
         }
-        while(j<=end){
-            tmp[k++]=a[j++];
+        while (j <= end) {
+            tmp[k++] = a[j++];
         }
 
         System.out.println("tmp " + Arrays.toString(tmp));
 
-        for(int z=start; z<=end; z++) {
-            a[z]=tmp[z];
+        for (int z = start; z <= end; z++) {
+            a[z] = tmp[z];
         }
     }
 }
