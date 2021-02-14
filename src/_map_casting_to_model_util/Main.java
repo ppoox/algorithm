@@ -37,7 +37,11 @@ public class Main {
 
         TestModel tm2 = new TestModel();
 
-        Method[] methods = tm2.getClass().getDeclaredMethods();
+        System.out.println(tm2.getClass() + " | " + clazz);
+        System.out.println(tm2 + " | " + clazz.getDeclaredConstructor().newInstance());
+
+
+        Method[] methods = clazz.getDeclaredMethods();
         for(String key : map.keySet()) {
 
             String methodString = "set"+key.substring(0,1).toUpperCase()+key.substring(1);

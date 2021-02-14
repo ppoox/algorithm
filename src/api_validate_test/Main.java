@@ -6,15 +6,17 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        ApiModel model = new ApiModel();
-        model.setNo("11");
-        model.setValue("dd");
-//        api(model);
+//        ApiModel model = new ApiModel();
+//        model.setNo("11");
+//        model.setValue("dd");
+////        api(model);
+//
+//        api(model).forEach((s, o) -> {
+//            System.out.println("key : " + s + " / value : " + o);
+//            System.out.println("=======================");
+//        });
 
-        api(model).forEach((s, o) -> {
-            System.out.println("key : " + s + " / value : " + o);
-            System.out.println("=======================");
-        });
+
 
     }
 
@@ -89,4 +91,5 @@ public class Main {
         else if (obj instanceof Object[]) return Array.getLength(obj) == 0;
         else return obj == null;
     }
+
 }
