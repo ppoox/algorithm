@@ -11,6 +11,6 @@ public class KClosest {
 ////		int[][] points = {{3,3},{5,-1},{-2,4}};
 ////		int k =2;
 //        System.out.println("===result==");
-//        int[][] result = a.solve(points, k); 
+//        int[][] result = a.solve(points, k);  
     }
 }
