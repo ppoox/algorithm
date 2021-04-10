@@ -5,7 +5,7 @@ public class KClosest {
     public static void main(String[] args) {
         KClosest a = new KClosest();
         int[][] points = { { 1, 3 }, { -2, 2 } };
-        System.out.println("=");
+        System.out.println("=!!!");
 //        a.print(points);
 //        int k = 1;
 ////		int[][] points = {{3,3},{5,-1},{-2,4}};
