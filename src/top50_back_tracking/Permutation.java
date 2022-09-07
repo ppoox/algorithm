@@ -1,6 +1,7 @@
 package top50_back_tracking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Permutation {
@@ -26,8 +27,10 @@ public class Permutation {
 
     private static void dfs(int[] nums, List<List<Integer>> lists, List<Integer> cur) {
         if (cur.size() == nums.length) {
-            List<Integer> list = new ArrayList<>(cur);
-            lists.add(list);
+//            List<Integer> list = new ArrayList<>(cur);
+//            lists.add(list);
+            System.out.println(Arrays.toString(cur.toArray()));
+            lists.add(cur);
         }
 
         for (int i = 0; i < nums.length; i++) {
@@ -39,7 +42,7 @@ public class Permutation {
                 continue;
             }
 
-            System.out.println(nums[i]);
+//            System.out.println(nums[i]);
             cur.add(nums[i]);
             dfs(nums, lists, cur);
             cur.remove(cur.size()-1);
