@@ -1,37 +1,53 @@
 package baekjoon.silver5;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class No2751 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] nums = new int[N];
-        for (int i = 0; i < N; i++) {
-            nums[i] = sc.nextInt();
+    //    public static void main(String[] args) {
+    //        Scanner sc = new Scanner(System.in);
+    //
+    //        int n = sc.nextInt();
+    //        List<Integer> list = new ArrayList<>();
+    //        for (int i = 0; i < n; i++) {
+    //            list.add(sc.nextInt());
+    //        }
+    //
+    //        Collections.sort(list);
+    //
+    //        StringBuilder sb = new StringBuilder();
+    //        for (int v : list) {
+    //            sb.append(v).append('\n');
+    //        }
+    //
+    //        System.out.println(sb);
+    //
+    //        sc.close();
+    //    }
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+		/*
+		  -1000000 ~ 1000000
+		  기준점 0 = index 100000 으로 생각
+		*/
+        boolean[] arr = new boolean[2000001];
+
+        int N = Integer.parseInt(br.readLine());
+
+        for(int i = 0; i < N; i++) {
+            arr[Integer.parseInt(br.readLine()) + 1000000] = true;
         }
 
-        int max = Arrays.stream(nums).max().getAsInt();
-        int[] cnts = new int[max + 1];
-        for (int i = 0; i < N; i++) {
-            if (nums[i] < 0) {
-                cnts[-nums[i]] += 2;
-            } else {
-                cnts[nums[i]] += 1;
+        for(int i = 0; i < arr.length; i++) {
+            if(arr[i]) {
+                sb.append((i - 1000000)).append('\n');
             }
         }
-
-        for (int i = max; i >= 0; i--) {
-            if (cnts[i] == 3 || cnts[i] == 2) {
-                System.out.println(i * -1);
-                cnts[i] -= 2;
-            }
-        }
-        for (int i = 0; i <= max; i++) {
-            if (cnts[i] == 1) {
-                System.out.println(i);
-            }
-        }
+        System.out.print(sb);
     }
 }

@@ -1,7 +1,6 @@
 package baekjoon.silver5;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class No1181 {
@@ -13,24 +12,16 @@ public class No1181 {
             strs[i] = sc.next();
         }
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            String min = strs[i];
-
-            for (int j = i + 1; j < N; j++) {
-                if (min.length() == strs[j].length() && strs[j].compareTo(min) < 0 || min.length() > strs[j].length()) {
-                    String temp = min;
-                    min = strs[j];
-                    strs[j] = temp;
-                }
+        Arrays.stream(strs).distinct().sorted((o1, o2) -> {
+            if (o1.length() > o2.length()) {
+                return 1;
+            } else if (o1.length() < o2.length()) {
+                return -1;
+            } else {
+                return o1.compareTo(o2);
             }
-            if (!list.contains(min)) {
-                list.add(min);
-            }
-        }
+        }).forEach(System.out::println);
 
-        for (String s : list) {
-            System.out.println(s);
-        }
+        sc.close();
     }
 }
