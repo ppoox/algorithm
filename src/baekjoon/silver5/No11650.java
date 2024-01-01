@@ -1,7 +1,5 @@
 package baekjoon.silver5;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +15,7 @@ class Pointer implements Comparable<Pointer> {
     }
 
     @Override
-    public int compareTo(@NotNull Pointer o) {
+    public int compareTo(Pointer o) {
         if (x == o.x) {
             return y - o.y;
         }

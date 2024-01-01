@@ -1,0 +1,51 @@
+package baekjoon.silver3;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class No15650 {
+    static int n, m;
+    static int[] selected, used;
+    static StringBuilder sb = new StringBuilder();
+
+    public static void input() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] inputs = br.readLine().split(" ");
+
+        n = Integer.parseInt(inputs[0]);
+        m = Integer.parseInt(inputs[1]);
+        selected = new int[m + 1];
+        used = new int[n + 1];
+
+        br.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+        input();
+        recursive(1);
+        System.out.println(sb);
+    }
+
+    private static void recursive(int d) {
+        if (d == m + 1) {
+            for (int i = 1; i <= m; i++) {
+                sb.append(selected[i]).append(" ");
+            }
+            sb.append("\n");
+        } else {
+            int start = d == 1 ? 1 :  selected[d - 1];
+            for (int i = start; i <= n; i++) {
+                if (used[i] == 1) {
+                    continue;
+                }
+                selected[d] = i;
+                used[i] = 1;
+                recursive(d + 1);
+                selected[d] = 0;
+                used[i] = 0;
+            }
+        }
+    }
+}
